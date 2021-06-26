@@ -1,0 +1,95 @@
+@mixin no-select {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+@mixin hide-text($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::selection {
+  background: $color-primary;
+  color: #fff;
+}
+
+:focus {
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  width: 0.25rem;
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-border;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  @include useFont($f-inter);
+
+  overflow-x: hidden;
+  line-height: $line-height;
+  font-size: $f-size;
+  color: $color-text;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  display: inline-block;
+  font-weight: normal;
+}
+
+ul,
+ol {
+  margin: 0;
+}
+
+input,
+textarea,
+button,
+select {
+  border: none;
+  background: none;
+  display: block;
+
+	&::placeholder {
+    @include no-select;
+
+		transition: $trs opacity;
+		color: inherit;
+	}
+
+	&:focus {
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+}
+
+button {
+  cursor: pointer;
+}
