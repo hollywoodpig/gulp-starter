@@ -1,10 +1,11 @@
 {
   "name": "gulp-starter",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.2.1",
+  "description": "a modern, simple and lightweight gulp starter template",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp",
+    "build": "gulp build"
   },
   "author": "hollywoodpig",
   "license": "ISC",
