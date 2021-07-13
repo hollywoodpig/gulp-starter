@@ -8,9 +8,9 @@ const autoprefixer = require('gulp-autoprefixer')
 const imagemin = require('gulp-imagemin')
 const fs = require('fs')
 
-const browserSyncStart = () => {
+const browserSyncing = () => {
   browserSync.init({
-    server: {baseDir: 'app'},
+    server: { baseDir: 'app' },
     notify: false
   })
 }
@@ -56,16 +56,16 @@ const buildCopy = () => {
   .pipe(gulp.dest('dist'))
 }
 
-const watchStart = () => {
+const watching = () => {
   gulp.watch('app/**/*.scss', styles)
   gulp.watch(['app/**/*.js', '!app/**/*.min.js'], scripts)
   gulp.watch('app/**/*.html').on('change', browserSync.reload)
 }
 
-exports.browserSync = browserSyncStart
+exports.browserSync = browserSyncing
 exports.styles = styles
 exports.scripts = scripts
 exports.removeDist = removeDist
 
 exports.build = gulp.series(removeDist, styles, scripts, buildCopy, buildImages)
-exports.default = gulp.parallel(styles, scripts, browserSyncStart, watchStart)
+exports.default = gulp.parallel(styles, scripts, browserSyncing, watching)
