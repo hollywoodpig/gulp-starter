@@ -5,7 +5,6 @@
     font-weight: $weight;
     src: url('../fonts/#{$filename}.woff2') format('woff2');
     src: url('../fonts/#{$filename}.woff') format('woff');
-    src: url('../fonts/#{$filename}.ttf') format('truetype');
   }
 }
 
@@ -29,7 +28,7 @@
 
 @mixin trs($type: null) {  
   @if $type == 'bezier' {
-    transition: 0.6s cubic-bezier(0.75, -1.27, 0.3, 2.33);
+    transition: 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
   }
   
   @else {
