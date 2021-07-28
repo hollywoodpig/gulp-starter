@@ -1,6 +1,6 @@
 {
   "name": "gulp-starter",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "description": "a modern, simple and lightweight gulp starter template",
   "main": "gulpfile.js",
   "scripts": {
@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.0.2",
+    "jquery": "^3.6.0",
     "modern-css-reset": "^1.4.0"
   }
 }

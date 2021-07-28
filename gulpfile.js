@@ -10,9 +10,17 @@ const fs = require('fs')
 
 const browserSyncing = () => {
   browserSync.init({
-    server: { baseDir: 'app' },
+    server: {baseDir: 'app'},
     notify: false
   })
+}
+
+const stylesVendors = () => {
+  return gulp.src('app/scss/vendors.scss')
+  .pipe(sass({ outputStyle: 'compressed'}).on('error', sass.logError) )
+  .pipe(concat('vendors.min.css'))
+  .pipe(gulp.dest('app/css'))
+  .pipe(browserSync.stream())
 }
 
 const styles = () => {
@@ -22,6 +30,15 @@ const styles = () => {
   .pipe(autoprefixer({ overrideBrowserslist: ['last 10 versions'], grid: true }))
   .pipe(gulp.dest('app/css'))
   .pipe(browserSync.stream())
+}
+
+const scriptsVendors = () => {
+  return gulp.src([
+    'node_modules/jquery/dist/jquery.js'
+  ])
+  .pipe(concat('vendors.min.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('app/js'))
 }
 
 const scripts = () => {
@@ -36,12 +53,12 @@ const scripts = () => {
 }
 
 const removeDist = async () => {
-  return fs.rmdirSync('dist', { recursive: true })
+  return fs.rmdirSync('dist', {recursive: true})
 }
 
 const buildImages = () => {
   return gulp.src('app/images/**/*')
-  .pipe(imagemin({ interlaced: true, progressive: true, optimizationLevel: 5 }))
+  .pipe(imagemin({interlaced: true, progressive: true, optimizationLevel: 5}))
   .pipe(gulp.dest('dist/img'))
 }
 
@@ -52,20 +69,16 @@ const buildCopy = () => {
     'app/img/**/*',
     'app/fonts/**/*',
     'app/**/*.html'
-  ], { base: 'app' })
+  ], {base: 'app'})
   .pipe(gulp.dest('dist'))
 }
 
 const watching = () => {
-  gulp.watch('app/**/*.scss', styles)
-  gulp.watch(['app/**/*.js', '!app/**/*.min.js'], scripts)
+  gulp.watch(['app/scss/*.scss', '!app/scss/vendors.scss'], styles)
+  gulp.watch(['app/scss/vendors.scss'], stylesVendors)
+  gulp.watch(['app/js/*.js', '!app/js/*.min.js'], scripts)
   gulp.watch('app/**/*.html').on('change', browserSync.reload)
 }
 
-exports.browserSync = browserSyncing
-exports.styles = styles
-exports.scripts = scripts
-exports.removeDist = removeDist
-
-exports.build = gulp.series(removeDist, styles, scripts, buildCopy, buildImages)
-exports.default = gulp.parallel(styles, scripts, browserSyncing, watching)
+exports.build = gulp.series(removeDist, stylesVendors, styles, scriptsVendors, scripts, buildCopy, buildImages)
+exports.default = gulp.parallel(stylesVendors, styles, scriptsVendors, scripts, browserSyncing, watching)
