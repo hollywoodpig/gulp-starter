@@ -13,10 +13,10 @@
 ::-webkit-scrollbar {
   width: $s-base;
   background: none;
-}
 
-::-webkit-scrollbar-thumb {
-  background: $c-gray-200;
+  &-thumb {
+    background: $c-gray-200;
+  }
 }
 
 body {
