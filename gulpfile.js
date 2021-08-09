@@ -16,7 +16,7 @@ const browserSyncing = () => {
 }
 
 const stylesVendors = () => {
-  return gulp.src('app/scss/vendors.scss')
+  return gulp.src('app/sass/vendors.sass')
   .pipe(sass({ outputStyle: 'compressed'}).on('error', sass.logError) )
   .pipe(concat('vendors.min.css'))
   .pipe(gulp.dest('app/css'))
@@ -24,7 +24,7 @@ const stylesVendors = () => {
 }
 
 const styles = () => {
-  return gulp.src('app/scss/app.scss')
+  return gulp.src('app/sass/app.sass')
   .pipe(sass({ outputStyle: 'compressed'}).on('error', sass.logError) )
   .pipe(concat('app.min.css'))
   .pipe(autoprefixer({ overrideBrowserslist: ['last 10 versions'], grid: true }))
@@ -74,8 +74,8 @@ const buildCopy = () => {
 }
 
 const watching = () => {
-  gulp.watch(['app/scss/*.scss', '!app/scss/vendors.scss'], styles)
-  gulp.watch(['app/scss/vendors.scss'], stylesVendors)
+  gulp.watch(['app/sass/*.sass', '!app/sass/vendors.sass'], styles)
+  gulp.watch(['app/sass/vendors.sass'], stylesVendors)
   gulp.watch(['app/js/*.js', '!app/js/*.min.js'], scripts)
   gulp.watch('app/**/*.html').on('change', browserSync.reload)
 }
