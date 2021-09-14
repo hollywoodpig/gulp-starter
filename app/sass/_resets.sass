@@ -11,13 +11,11 @@
 ::-webkit-scrollbar
   width: $s-base
   background: none
-
   &-thumb
     background: $c-gray-200
 
 body
   +font($f-inter, $f-inter-regular)
-
   overflow-x: hidden
   background: $c-gray-100
   color: $c-gray-300
@@ -28,12 +26,8 @@ ol
   margin: 0
   padding: 0
 
-  li
-    list-style: none
-
 .container
   padding: 0 var(--bs-gutter-x, #{math.div($s-base-gutter, 2)})
-
   .row
     --bs-gutter-x: #{$s-base-gutter}
     --bs-gutter-y: #{$s-base-gutter}
